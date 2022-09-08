@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <d3d11.h>
 #include <wrl.h>
+#include <DirectXMath.h>
 
 class Graphics
 {
@@ -11,9 +12,10 @@ public:
 	bool Initialize(HWND hWnd);
 	void EndFrame();
 	void ClearBuffer(float r, float g, float b, float a);
+	void DrawIndexed(UINT count);
 
-	void DrawTriangle(float angle);
-	void DrawTriangleNew(float angle);
+	void SetProjection(DirectX::XMMATRIX projection);
+	DirectX::XMMATRIX GetProjection() const;
 
 
 private:
@@ -22,4 +24,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> pContext;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSView;
+
+	DirectX::XMMATRIX mProjection;
 };

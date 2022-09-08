@@ -2,6 +2,8 @@
 
 #include "WindowContainer.h"
 #include "Timer.h"
+#include "Box.h"
+#include <memory>
 
 class Engine : public WindowContainer
 {
@@ -11,6 +13,8 @@ public:
 	void Update();
 
 private:
+
+	std::unique_ptr<Box> box;
 
 	Timer timer;
 };

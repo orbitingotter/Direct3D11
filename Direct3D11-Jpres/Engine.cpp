@@ -13,6 +13,10 @@ bool Engine::Initialize(std::string windowTitle, std::string windowClass, int wi
 		return false;
 	}
 
+
+	box = std::make_unique<Box>(graphics);
+	graphics.SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+
 	return true;
 }
 
@@ -23,8 +27,6 @@ bool Engine::ProcessMessages()
 
 void Engine::Update()
 {
-	//std::string text = std::to_string(mouse.GetPosX()) + ", " + std::to_string(mouse.GetPosY());
-	//SetWindowTextA(renderWindow.GetHandle(), text.c_str());
 
 	float r = (sin(timer.Peek()) / 2.0f) + 0.5f;
 	float g = (sin(timer.Peek() * 0.8f) / 2.0f) + 0.5f;
@@ -32,8 +34,11 @@ void Engine::Update()
 
 
 	graphics.ClearBuffer(r, g, b, 1.0f);
-	//graphics.DrawTriangle(timer.Peek() * 0.4f);
-	graphics.DrawTriangleNew(timer.Peek() * 0.2f);
+
+	box->Update(timer.Peek() * 0.001f);
+	box->Draw(graphics);
+
+	//graphics.DrawTriangleNew(timer.Peek() * 0.2f);
 
 	graphics.EndFrame();
 }

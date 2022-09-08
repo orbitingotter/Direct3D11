@@ -15,6 +15,8 @@
 #include "Topology.h"
 #include "InputLayout.h"
 
+#include "Drawable.h"
+
 #include <memory>
 
 using namespace Microsoft::WRL;
@@ -127,210 +129,17 @@ void Graphics::ClearBuffer(float r, float g, float b, float a)
 
 }
 
-void Graphics::DrawTriangle(float angle)
+void Graphics::DrawIndexed(UINT count)
 {
-
-	struct Vertex
-	{
-		float x, y, z;
-		unsigned char r, g, b, a;
-	};
-
-	Vertex vertices[] =
-	{
-		{ -1.0f,-1.0f,-1.0f, 255, 0,0,255},
-		{ 1.0f,-1.0f,-1.0f, 0,255,0,255},
-		{ -1.0f,1.0f,-1.0f, 0,0,255,255},
-		{ 1.0f,1.0f,-1.0f, 255, 255, 0,255},
-		{ -1.0f,-1.0f,1.0f, 255,0,255,255},
-		{ 1.0f,-1.0f,1.0f,0,255,255,255},
-		{ -1.0f,1.0f,1.0f,255,255,255,255},
-		{ 1.0f,1.0f,1.0f,0,0,0,255},
-	};
-
-	const unsigned short indices[] =
-	{
-		0,2,1, 2,3,1,
-		1,3,5, 3,7,5,
-		2,6,3, 3,6,7,
-		4,5,7, 4,7,6,
-		0,4,2, 2,4,6,
-		0,1,4, 1,5,4
-	};
-
-	struct ConstantBuffer
-	{
-		DirectX::XMMATRIX transform;
-	};
-
-	const ConstantBuffer cb =
-	{
-		DirectX::XMMatrixTranspose(
-		DirectX::XMMatrixRotationZ(angle) *
-		DirectX::XMMatrixRotationX(angle) *
-		DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f) *
-		DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 100.0f)
-		)
-	};
-
-	{
-		ComPtr<ID3D11Buffer> pVertexBuffer;
-		D3D11_BUFFER_DESC bd = {};
-		bd.ByteWidth = sizeof(vertices);
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		bd.CPUAccessFlags = 0;
-		bd.MiscFlags = 0;
-		bd.StructureByteStride = sizeof(Vertex);
-
-		D3D11_SUBRESOURCE_DATA sd = {};
-		sd.pSysMem = vertices;
-
-		pDevice->CreateBuffer(&bd, &sd, &pVertexBuffer);
-
-		const UINT stride = sizeof(Vertex);
-		const UINT offset = 0u;
-		pContext->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
-
-		pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	}
-
-	{
-		ComPtr<ID3D11Buffer> pIndexBuffer;
-		D3D11_BUFFER_DESC ibd = {};
-		ibd.ByteWidth = sizeof(indices);
-		ibd.Usage = D3D11_USAGE_DEFAULT;
-		ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-		ibd.CPUAccessFlags = 0;
-		ibd.MiscFlags = 0;
-		ibd.StructureByteStride = sizeof(unsigned short);
-		D3D11_SUBRESOURCE_DATA sd = {};
-		sd.pSysMem = indices;
-
-		pDevice->CreateBuffer(&ibd, &sd, &pIndexBuffer);
-		pContext->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
-
-	}
-
-	{
-		ComPtr<ID3D11Buffer> pConstantBuffer;
-		D3D11_BUFFER_DESC cbd = {};
-		cbd.ByteWidth = sizeof(cb);
-		cbd.Usage = D3D11_USAGE_DYNAMIC;
-		cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		cbd.MiscFlags = 0;
-		cbd.StructureByteStride = sizeof(ConstantBuffer);
-		D3D11_SUBRESOURCE_DATA sd = {};
-		sd.pSysMem = &cb;
-
-		pDevice->CreateBuffer(&cbd, &sd, &pConstantBuffer);
-		pContext->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
-	}
-
-
-	ComPtr<ID3DBlob> pBlob;
-	{
-		ComPtr<ID3D11VertexShader> pVertexShader;
-		D3DReadFileToBlob(L"VertexShader.cso", &pBlob);
-		pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader);
-		pContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
-	}
-
-	{
-		ComPtr<ID3D11InputLayout> pLayout;
-		const D3D11_INPUT_ELEMENT_DESC ied[] =
-		{
-			{"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-			{"Color", 0, DXGI_FORMAT_B8G8R8A8_UNORM, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
-		};
-
-		pDevice->CreateInputLayout(ied, (UINT)std::size(ied), pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pLayout);
-		pContext->IASetInputLayout(pLayout.Get());
-	}
-
-	{
-		ComPtr<ID3D11PixelShader> pPixelShader;
-		D3DReadFileToBlob(L"PixelShader.cso", &pBlob);
-		pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader);
-		pContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
-	}
-
-
-	pContext->DrawIndexed((UINT)std::size(indices), 0u, 0u);
-
+	pContext->DrawIndexed(count, 0u, 0u);
 }
 
-
-void Graphics::DrawTriangleNew(float angle)
+void Graphics::SetProjection(DirectX::XMMATRIX projection)
 {
-	std::vector<std::unique_ptr<Bindable>> bindables;
+	mProjection = projection;
+}
 
-	struct Vertex
-	{
-		float x, y, z;
-		unsigned char r, g, b, a;
-	};
-	std::vector<Vertex> vertices =
-	{
-		{ -1.0f,-1.0f,-1.0f, 255, 0,0,255},
-		{ 1.0f,-1.0f,-1.0f, 0,255,0,255},
-		{ -1.0f,1.0f,-1.0f, 0,0,255,255},
-		{ 1.0f,1.0f,-1.0f, 255, 255, 0,255},
-		{ -1.0f,-1.0f,1.0f, 255,0,255,255},
-		{ 1.0f,-1.0f,1.0f,0,255,255,255},
-		{ -1.0f,1.0f,1.0f,255,255,255,255},
-		{ 1.0f,1.0f,1.0f,0,0,0,255},
-	};
-
-	bindables.push_back(std::make_unique<VertexBuffer>(*this, vertices));
-	const std::vector<unsigned short> indices =
-	{
-		0,2,1, 2,3,1,
-		1,3,5, 3,7,5,
-		2,6,3, 3,6,7,
-		4,5,7, 4,7,6,
-		0,4,2, 2,4,6,
-		0,1,4, 1,5,4
-	};
-
-	auto ib = std::make_unique<IndexBuffer>(*this, indices);
-	UINT indexCount = ib->GetCount();
-	bindables.push_back(std::move(ib));
-
-	DirectX::XMMATRIX transform = DirectX::XMMatrixTranspose(
-		DirectX::XMMatrixRotationZ(angle) *
-		DirectX::XMMatrixRotationX(angle) *
-		DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f) *
-		DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 100.0f));
-
-	bindables.push_back(std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(*this, transform));
-
-
-	auto vs = std::make_unique<VertexShader>(*this, "VertexShader.cso");
-	auto pvsbc = vs->GetByteCode();
-	bindables.push_back(std::move(vs));
-
-	bindables.push_back(std::make_unique<PixelShader>(*this, "PixelShader.cso"));
-
-
-	std::vector<D3D11_INPUT_ELEMENT_DESC> layout =
-	{
-		{"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"Color", 0, DXGI_FORMAT_B8G8R8A8_UNORM, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
-	};
-
-	bindables.push_back(std::make_unique<InputLayout>(*this, layout, pvsbc));
-
-	bindables.push_back(std::make_unique<Topology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
-
-
-	for (auto& b : bindables)
-	{
-		b->Bind(*this);
-	}
-
-	pContext->DrawIndexed(indexCount, 0u, 0u);
-
+DirectX::XMMATRIX Graphics::GetProjection() const
+{
+	return mProjection;
 }

@@ -21,6 +21,19 @@ public:
 		GetDevice(gfx)->CreateBuffer(&cbd, &sd, &pConstantBuffer);
 	}
 
+	ConstantBuffer(Graphics& gfx)
+	{
+		D3D11_BUFFER_DESC cbd;
+		cbd.ByteWidth = sizeof(T);
+		cbd.Usage = D3D11_USAGE_DYNAMIC;
+		cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		cbd.MiscFlags = 0u;
+		cbd.StructureByteStride = 0u;
+
+		GetDevice(gfx)->CreateBuffer(&cbd, nullptr, &pConstantBuffer);
+	}
+
 	void Update(Graphics& gfx, const T& consts)
 	{
 		D3D11_MAPPED_SUBRESOURCE msr;

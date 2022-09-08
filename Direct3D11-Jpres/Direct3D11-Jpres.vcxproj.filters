@@ -40,6 +40,12 @@
     <Filter Include="Source Files\Bindables">
       <UniqueIdentifier>{b6760915-030d-4e3a-8dbb-07a6ed52c754}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Drawables">
+      <UniqueIdentifier>{4fdcdce0-dcf6-4d42-a51d-60a5a7dc0ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawables">
+      <UniqueIdentifier>{469ab9b0-6e45-4634-a79e-bdacca406358}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -91,6 +97,15 @@
       <Filter>Source Files\Bindables</Filter>
     </ClCompile>
     <ClCompile Include="InputLayout.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformCBuf.cpp">
       <Filter>Source Files\Bindables</Filter>
     </ClCompile>
   </ItemGroup>
@@ -150,6 +165,15 @@
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
     <ClInclude Include="InputLayout.h">
+      <Filter>Header Files\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformCBuf.h">
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
   </ItemGroup>
