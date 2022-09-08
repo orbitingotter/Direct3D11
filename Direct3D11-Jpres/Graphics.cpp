@@ -2,8 +2,20 @@
 #include "ErrorLogger.h"
 
 #include <math.h>
+#include <vector>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+
+#include "Bindable.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "ConstantBuffer.h"
+#include "VertexShader.h"
+#include "PixelShader.h"
+#include "Topology.h"
+#include "InputLayout.h"
+
+#include <memory>
 
 using namespace Microsoft::WRL;
 
@@ -55,6 +67,50 @@ bool Graphics::Initialize(HWND hWnd)
 		return false;
 	}
 
+	// Create Depth Buffer
+	D3D11_DEPTH_STENCIL_DESC dsDesc = {};
+	dsDesc.DepthEnable = TRUE;
+	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	ComPtr<ID3D11DepthStencilState> pDSState;
+
+	pDevice->CreateDepthStencilState(&dsDesc, &pDSState);
+	pContext->OMSetDepthStencilState(pDSState.Get(), 1u);
+
+	ComPtr<ID3D11Texture2D> pDepthStencil;
+	D3D11_TEXTURE2D_DESC tDesc = {};
+	tDesc.Width = 800;
+	tDesc.Height = 600;
+	tDesc.MipLevels = 1u;
+	tDesc.ArraySize = 1u;
+	tDesc.Format = DXGI_FORMAT_D32_FLOAT;
+	tDesc.SampleDesc.Count = 1u;
+	tDesc.SampleDesc.Quality = 0u;
+	tDesc.Usage = D3D11_USAGE_DEFAULT;
+	tDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	pDevice->CreateTexture2D(&tDesc, nullptr, &pDepthStencil);
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc;
+	dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
+	dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	dsvDesc.Flags = 0u;
+	dsvDesc.Texture2D.MipSlice = 0u;
+
+	pDevice->CreateDepthStencilView(pDepthStencil.Get(), &dsvDesc, &pDSView);
+	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSView.Get());
+
+
+	// Configure Viewport
+	D3D11_VIEWPORT vp;
+	vp.Width = 800;
+	vp.Height = 600;
+	vp.MinDepth = 0;
+	vp.MaxDepth = 1;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	pContext->RSSetViewports(1u, &vp);
+
+
 	return true;
 }
 
@@ -67,6 +123,8 @@ void Graphics::ClearBuffer(float r, float g, float b, float a)
 {
 	const float color[] = { r, g, b, a };
 	pContext->ClearRenderTargetView(pTarget.Get(), color);
+	pContext->ClearDepthStencilView(pDSView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
+
 }
 
 void Graphics::DrawTriangle(float angle)
@@ -199,21 +257,80 @@ void Graphics::DrawTriangle(float angle)
 		pContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 	}
 
-	{
-		D3D11_VIEWPORT vp;
-		vp.Width = 800;
-		vp.Height = 600;
-		vp.MinDepth = 0;
-		vp.MaxDepth = 1;
-		vp.TopLeftX = 0;
-		vp.TopLeftY = 0;
-		pContext->RSSetViewports(1u, &vp);
-	}
-
-	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), nullptr);
-
-
 
 	pContext->DrawIndexed((UINT)std::size(indices), 0u, 0u);
+
+}
+
+
+void Graphics::DrawTriangleNew(float angle)
+{
+	std::vector<std::unique_ptr<Bindable>> bindables;
+
+	struct Vertex
+	{
+		float x, y, z;
+		unsigned char r, g, b, a;
+	};
+	std::vector<Vertex> vertices =
+	{
+		{ -1.0f,-1.0f,-1.0f, 255, 0,0,255},
+		{ 1.0f,-1.0f,-1.0f, 0,255,0,255},
+		{ -1.0f,1.0f,-1.0f, 0,0,255,255},
+		{ 1.0f,1.0f,-1.0f, 255, 255, 0,255},
+		{ -1.0f,-1.0f,1.0f, 255,0,255,255},
+		{ 1.0f,-1.0f,1.0f,0,255,255,255},
+		{ -1.0f,1.0f,1.0f,255,255,255,255},
+		{ 1.0f,1.0f,1.0f,0,0,0,255},
+	};
+
+	bindables.push_back(std::make_unique<VertexBuffer>(*this, vertices));
+	const std::vector<unsigned short> indices =
+	{
+		0,2,1, 2,3,1,
+		1,3,5, 3,7,5,
+		2,6,3, 3,6,7,
+		4,5,7, 4,7,6,
+		0,4,2, 2,4,6,
+		0,1,4, 1,5,4
+	};
+
+	auto ib = std::make_unique<IndexBuffer>(*this, indices);
+	UINT indexCount = ib->GetCount();
+	bindables.push_back(std::move(ib));
+
+	DirectX::XMMATRIX transform = DirectX::XMMatrixTranspose(
+		DirectX::XMMatrixRotationZ(angle) *
+		DirectX::XMMatrixRotationX(angle) *
+		DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f) *
+		DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 100.0f));
+
+	bindables.push_back(std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(*this, transform));
+
+
+	auto vs = std::make_unique<VertexShader>(*this, "VertexShader.cso");
+	auto pvsbc = vs->GetByteCode();
+	bindables.push_back(std::move(vs));
+
+	bindables.push_back(std::make_unique<PixelShader>(*this, "PixelShader.cso"));
+
+
+	std::vector<D3D11_INPUT_ELEMENT_DESC> layout =
+	{
+		{"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"Color", 0, DXGI_FORMAT_B8G8R8A8_UNORM, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
+	};
+
+	bindables.push_back(std::make_unique<InputLayout>(*this, layout, pvsbc));
+
+	bindables.push_back(std::make_unique<Topology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+
+
+	for (auto& b : bindables)
+	{
+		b->Bind(*this);
+	}
+
+	pContext->DrawIndexed(indexCount, 0u, 0u);
 
 }

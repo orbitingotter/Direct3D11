@@ -32,7 +32,8 @@ void Engine::Update()
 
 
 	graphics.ClearBuffer(r, g, b, 1.0f);
-	graphics.DrawTriangle(timer.Peek() * 0.4f);
+	//graphics.DrawTriangle(timer.Peek() * 0.4f);
+	graphics.DrawTriangleNew(timer.Peek() * 0.2f);
 
 	graphics.EndFrame();
 }
