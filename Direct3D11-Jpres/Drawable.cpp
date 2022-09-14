@@ -1,5 +1,7 @@
 #include "Drawable.h"
 
+UINT Drawable::indexCount = 0;
+
 void Drawable::Draw(Graphics& gfx) const
 {
 	for (auto& b : mBinds)
@@ -7,8 +9,12 @@ void Drawable::Draw(Graphics& gfx) const
 		b->Bind(gfx);
 	}
 
+	for (auto& b : GetStaticBinds())
+	{
+		b->Bind(gfx);
+	}
 
-	gfx.DrawIndexed(mIndexCount);
+	gfx.DrawIndexed(indexCount);
 }
 
 void Drawable::AddBind(std::unique_ptr<Bindable> bindable)
@@ -18,6 +24,6 @@ void Drawable::AddBind(std::unique_ptr<Bindable> bindable)
 
 void Drawable::AddIndexBuffer(std::unique_ptr<IndexBuffer> bindable)
 {
-	mIndexCount = bindable->GetCount();
+	indexCount = bindable->GetCount();
 	mBinds.push_back(std::move(bindable));
 }

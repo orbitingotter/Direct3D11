@@ -14,7 +14,7 @@ public:
 
 private:
 
-	std::unique_ptr<Box> box;
+	std::vector<std::unique_ptr<Box>> boxes;
 
 	Timer timer;
 };
