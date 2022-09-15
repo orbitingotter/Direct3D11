@@ -3,6 +3,7 @@
 #include "WindowContainer.h"
 #include "Timer.h"
 #include "Box.h"
+#include "Sheet.h"
 #include <memory>
 
 class Engine : public WindowContainer
@@ -15,6 +16,7 @@ public:
 private:
 
 	std::vector<std::unique_ptr<Box>> boxes;
+	std::vector<std::unique_ptr<Sheet>> sheets;
 
 	Timer timer;
 };

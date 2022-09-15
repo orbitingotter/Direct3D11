@@ -10,6 +10,7 @@
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
+	CoInitialize(NULL);
 	Engine engine;
 	engine.Initialize("Direct3D11 App", "Direct3D11 App", 800, 600);
 

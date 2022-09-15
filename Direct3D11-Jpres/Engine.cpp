@@ -13,8 +13,8 @@ bool Engine::Initialize(std::string windowTitle, std::string windowClass, int wi
 		return false;
 	}
 
-	boxes.push_back(std::make_unique<Box>(graphics));
-
+	//boxes.push_back(std::make_unique<Box>(graphics));
+	sheets.push_back(std::make_unique<Sheet>(graphics));
 
 	graphics.SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
 
@@ -36,10 +36,12 @@ void Engine::Update()
 
 	graphics.ClearBuffer(r, g, b, 1.0f);
 
-	boxes[0]->Update(timer.Peek() * 0.001f);
 
 	for (auto& box : boxes)
 		box->Draw(graphics);
+
+	for (auto& sheet : sheets)
+		sheet->Draw(graphics);
 
 	//graphics.DrawTriangleNew(timer.Peek() * 0.2f);
 
