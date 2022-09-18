@@ -17,12 +17,14 @@ public:
 			ErrorLogger::Log("Indices must be in multiples of 3");
 	}
 
-	void Transform(DirectX::XMMATRIX matrix)
+	void Transform(DirectX::FXMMATRIX matrix)
 	{
 		for (auto& v : vertices)
 		{
 			const DirectX::XMVECTOR pos = DirectX::XMLoadFloat3(&v.pos);
+
 			DirectX::XMStoreFloat3(&v.pos, DirectX::XMVector3Transform(pos, matrix));
+
 		}
 	}
 

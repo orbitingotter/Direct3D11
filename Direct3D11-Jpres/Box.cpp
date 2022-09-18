@@ -11,11 +11,15 @@ Box::Box(Graphics& gfx)
 	{
 		struct Vertex
 		{
-			float x, y, z;
-			unsigned char r, g, b, a;
+			DirectX::XMFLOAT3 pos;
+			struct
+			{
+				unsigned char r, g, b, a;
+			}color;
 		};
 
 		IndexedTriangleList<Vertex> model = Cube::MakeBlend<Vertex>();
+		model.Transform(DirectX::XMMatrixScaling(1.0f, 1.0f, 1.2f));
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));

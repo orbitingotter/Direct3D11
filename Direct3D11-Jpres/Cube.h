@@ -10,14 +10,14 @@ public:
 	{
 		std::vector<T> vertices;
 
-		vertices.emplace_back(-1.0f, -1.0f, -1.0f, 255, 0, 0, 255);
-		vertices.emplace_back(1.0f, -1.0f, -1.0f, 0, 255, 0, 255);
-		vertices.emplace_back(-1.0f, 1.0f, -1.0f, 0, 0, 255, 255);
-		vertices.emplace_back(1.0f, 1.0f, -1.0f, 255, 255, 0, 255);
-		vertices.emplace_back(-1.0f, -1.0f, 1.0f, 255, 0, 255, 255);
-		vertices.emplace_back(1.0f, -1.0f, 1.0f, 0, 255, 255, 255);
-		vertices.emplace_back(-1.0f, 1.0f, 1.0f, 255, 255, 255, 255);
-		vertices.emplace_back(1.0f, 1.0f, 1.0f, 0, 0, 0, 255);
+		vertices.emplace_back(T({ -1.0f, -1.0f, -1.0f }, { 255,0,0, 255 }));
+		vertices.emplace_back(T({ 1.0f, -1.0f, -1.0f }, { 0, 255, 0, 255 }));
+		vertices.emplace_back(T({ -1.0f, 1.0f, -1.0f }, { 0, 0, 255, 255 }));
+		vertices.emplace_back(T({ 1.0f, 1.0f, -1.0f }, { 255, 255, 0, 255 }));
+		vertices.emplace_back(T({ -1.0f, -1.0f, 1.0f }, { 255, 0, 255, 255 }));
+		vertices.emplace_back(T({ 1.0f, -1.0f, 1.0f }, { 0, 255, 255, 255 }));
+		vertices.emplace_back(T({ -1.0f, 1.0f, 1.0f }, { 255, 255, 255, 255 }));
+		vertices.emplace_back(T({ 1.0f, 1.0f, 1.0f }, { 0, 0, 0, 255 }));
 
 		const std::vector<unsigned short> indices =
 		{
