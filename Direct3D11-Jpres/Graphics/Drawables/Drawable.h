@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Bindable.h"
-#include "IndexBuffer.h"
+#include "Graphics/Bindables/Bindable.h"
+#include "Graphics/Bindables/IndexBuffer.h"
 #include <DirectXMath.h>
 #include <memory>
 #include <vector>

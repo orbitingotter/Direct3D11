@@ -1,7 +1,7 @@
 #include "Sheet.h"
 
 #include <DirectXMath.h>
-#include "DrawableIncludes.h"
+#include "Graphics/Bindables/BindableIncludes.h"
 
 Sheet::Sheet(Graphics& gfx)
 {
@@ -31,14 +31,14 @@ Sheet::Sheet(Graphics& gfx)
 
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, indices));
 
-		AddStaticBind(std::make_unique<Texture>(gfx, "Resources\\howl.png"));
+		AddStaticBind(std::make_unique<Texture>(gfx, "Resources/howl.png"));
 		AddStaticBind(std::make_unique<Sampler>(gfx));
 
-		auto vs = std::make_unique<VertexShader>(gfx, "TextureVS.cso");
+		auto vs = std::make_unique<VertexShader>(gfx, "Shaders/TextureVS.cso");
 		auto pvsbc = vs->GetByteCode();
 		AddStaticBind(std::move(vs));
 
-		AddStaticBind(std::make_unique<PixelShader>(gfx, "TexturePS.cso"));
+		AddStaticBind(std::make_unique<PixelShader>(gfx, "Shaders/TexturePS.cso"));
 
 		std::vector<D3D11_INPUT_ELEMENT_DESC> layout =
 		{

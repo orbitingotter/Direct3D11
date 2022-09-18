@@ -1,8 +1,8 @@
 #include "Texture.h"
 
 #include "Includes/WICTextureLoader.h"
-#include "StringConverter.h"
-#include "ErrorLogger.h"
+#include "Utilities/StringConverter.h"
+#include "Utilities/ErrorLogger.h"
 
 Texture::Texture(Graphics& gfx, std::string fileName)
 {

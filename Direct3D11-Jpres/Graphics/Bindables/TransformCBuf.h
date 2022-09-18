@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ConstantBuffer.h"
-#include "Drawable.h"
+#include "Graphics/Bindables/ConstantBuffer.h"
+#include "Graphics/Drawables/Drawable.h"
 #include <DirectXMath.h>
 
 class TransformCBuf : public Bindable

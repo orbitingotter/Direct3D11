@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <DirectXMath.h>
-#include "ErrorLogger.h"
+#include "Utilities/ErrorLogger.h"
 
 template<typename T>
 class IndexedTriangleList

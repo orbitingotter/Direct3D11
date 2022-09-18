@@ -1,9 +1,9 @@
 #pragma once
 
 #include "WindowContainer.h"
-#include "Timer.h"
-#include "Box.h"
-#include "Sheet.h"
+#include "Utilities/Timer.h"
+#include "Graphics/Drawables/Box.h"
+#include "Graphics/Drawables/Sheet.h"
 #include <memory>
 
 class Engine : public WindowContainer

@@ -13,18 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Keyboard">
-      <UniqueIdentifier>{c2c12ee5-4cc2-4efa-9748-fa2028a2ef40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Keyboard">
-      <UniqueIdentifier>{b0fe34aa-1afe-4c65-b57d-5fd65152955f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Mouse">
-      <UniqueIdentifier>{d7aa41cb-a562-43eb-a929-25281b121316}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Mouse">
-      <UniqueIdentifier>{21222c8c-8afc-4a66-ad6a-0d2c6d5d86dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Utilities">
       <UniqueIdentifier>{47c1f9ef-ac6c-486d-98a7-414184329e16}</UniqueIdentifier>
     </Filter>
@@ -49,6 +37,12 @@
     <Filter Include="Header Files\Drawables\Primitives">
       <UniqueIdentifier>{90f59c19-d5ab-439a-a647-5ed685756ad9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{b62c70c7-5964-4d37-8d38-167f51893755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{21d6c4b9-095d-482d-8415-e94da88ca958}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -60,68 +54,68 @@
     <ClCompile Include="WindowContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardEvent.cpp">
-      <Filter>Source Files\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="Keyboard.cpp">
-      <Filter>Source Files\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseEvent.cpp">
-      <Filter>Source Files\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>Source Files\Mouse</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ErrorLogger.cpp">
+    <ClCompile Include="Graphics\Bindables\Bindable.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Bindables\IndexBuffer.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Bindables\InputLayout.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Bindables\PixelShader.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Bindables\Sampler.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Bindables\Texture.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Bindables\Topology.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Bindables\TransformCBuf.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Bindables\VertexBuffer.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Bindables\VertexShader.cpp">
+      <Filter>Source Files\Bindables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Drawables\Box.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Drawables\Drawable.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Drawables\DrawableBase.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Drawables\Sheet.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\ErrorLogger.cpp">
       <Filter>Source Files\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics.cpp">
+    <ClCompile Include="Input\Keyboard.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\KeyboardEvent.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Mouse.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\MouseEvent.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Graphics.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bindable.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="Topology.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexShader.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelShader.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="InputLayout.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawable.cpp">
-      <Filter>Source Files\Drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="Box.cpp">
-      <Filter>Source Files\Drawables</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformCBuf.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="Sampler.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawableBase.cpp">
-      <Filter>Source Files\Bindables</Filter>
-    </ClCompile>
-    <ClCompile Include="Sheet.cpp">
-      <Filter>Source Files\Drawables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,99 +125,99 @@
     <ClInclude Include="WindowContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardEvent.h">
-      <Filter>Header Files\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Keyboard.h">
-      <Filter>Header Files\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Header Files\Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseEvent.h">
-      <Filter>Header Files\Mouse</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ErrorLogger.h">
-      <Filter>Header Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="StringConverter.h">
-      <Filter>Header Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Header Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Bindable.h">
+    <ClInclude Include="Graphics\Bindables\Bindable.h">
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
-    <ClInclude Include="Topology.h">
+    <ClInclude Include="Graphics\Bindables\ConstantBuffer.h">
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
+    <ClInclude Include="Graphics\Bindables\IndexBuffer.h">
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
+    <ClInclude Include="Graphics\Bindables\InputLayout.h">
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
-    <ClInclude Include="ConstantBuffer.h">
+    <ClInclude Include="Graphics\Bindables\PixelShader.h">
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
-    <ClInclude Include="VertexShader.h">
+    <ClInclude Include="Graphics\Bindables\Sampler.h">
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
-    <ClInclude Include="PixelShader.h">
+    <ClInclude Include="Graphics\Bindables\Texture.h">
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
-    <ClInclude Include="InputLayout.h">
+    <ClInclude Include="Graphics\Bindables\Topology.h">
       <Filter>Header Files\Bindables</Filter>
     </ClInclude>
-    <ClInclude Include="Drawable.h">
+    <ClInclude Include="Graphics\Bindables\TransformCBuf.h">
+      <Filter>Header Files\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Bindables\VertexBuffer.h">
+      <Filter>Header Files\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Bindables\VertexShader.h">
+      <Filter>Header Files\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Bindables\BindableIncludes.h">
+      <Filter>Header Files\Bindables</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Drawables\Box.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="Box.h">
+    <ClInclude Include="Graphics\Drawables\Drawable.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="TransformCBuf.h">
-      <Filter>Header Files\Bindables</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawableIncludes.h">
+    <ClInclude Include="Graphics\Drawables\DrawableBase.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files\Bindables</Filter>
-    </ClInclude>
-    <ClInclude Include="Sampler.h">
-      <Filter>Header Files\Bindables</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawableBase.h">
-      <Filter>Header Files\Bindables</Filter>
-    </ClInclude>
-    <ClInclude Include="Sheet.h">
+    <ClInclude Include="Graphics\Drawables\IndexedTriangleList.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="IndexedTriangleList.h">
+    <ClInclude Include="Graphics\Drawables\Sheet.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
+    <ClInclude Include="Graphics\Drawables\Primitives\Cube.h">
       <Filter>Header Files\Drawables\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\ErrorLogger.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\StringConverter.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Timer.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Mouse.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\MouseEvent.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Keyboard.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\KeyboardEvent.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Graphics.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="BlendVS.hlsl">
+    <FxCompile Include="Shaders\BlendPS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="BlendPS.hlsl">
+    <FxCompile Include="Shaders\BlendVS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="TextureVS.hlsl">
+    <FxCompile Include="Shaders\TexturePS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="TexturePS.hlsl">
+    <FxCompile Include="Shaders\TextureVS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

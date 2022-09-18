@@ -1,21 +1,14 @@
 #include "Graphics.h"
-#include "ErrorLogger.h"
+#include "Utilities/ErrorLogger.h"
 
 #include <math.h>
 #include <vector>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
-#include "Bindable.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-#include "ConstantBuffer.h"
-#include "VertexShader.h"
-#include "PixelShader.h"
-#include "Topology.h"
-#include "InputLayout.h"
+#include "Graphics/Bindables/BindableIncludes.h"
 
-#include "Drawable.h"
+#include "Graphics/Drawables/Drawable.h"
 
 #include <memory>
 

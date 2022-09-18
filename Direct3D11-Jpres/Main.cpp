@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include "Engine.h"
-#include "ErrorLogger.h"
+#include "Utilities/ErrorLogger.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "DirectXTK.lib")

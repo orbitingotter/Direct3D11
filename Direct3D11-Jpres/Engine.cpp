@@ -1,5 +1,5 @@
 #include "Engine.h"
-#include "ErrorLogger.h"
+#include "Utilities/ErrorLogger.h"
 
 bool Engine::Initialize(std::string windowTitle, std::string windowClass, int width, int height)
 {

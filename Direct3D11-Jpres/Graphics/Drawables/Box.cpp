@@ -2,8 +2,8 @@
 
 #include <DirectXMath.h>
 
-#include "DrawableIncludes.h"
-#include "Cube.h"
+#include "Graphics/Bindables/BindableIncludes.h"
+#include "Graphics/Drawables/Primitives/Cube.h"
 
 Box::Box(Graphics& gfx)
 {
@@ -25,11 +25,11 @@ Box::Box(Graphics& gfx)
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
 
 
-		auto vs = std::make_unique<VertexShader>(gfx, "BlendVS.cso");
+		auto vs = std::make_unique<VertexShader>(gfx, "Shaders/BlendVS.cso");
 		auto pvsbc = vs->GetByteCode();
 		AddStaticBind(std::move(vs));
 
-		AddStaticBind(std::make_unique<PixelShader>(gfx, "BlendPS.cso"));
+		AddStaticBind(std::make_unique<PixelShader>(gfx, "Shaders/BlendPS.cso"));
 
 		std::vector<D3D11_INPUT_ELEMENT_DESC> layout =
 		{

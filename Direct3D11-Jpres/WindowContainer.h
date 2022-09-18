@@ -2,9 +2,9 @@
 
 #include <string>
 #include "RenderWindow.h"
-#include "Keyboard.h"
-#include "Mouse.h"
-#include "Graphics.h"
+#include "Input/Keyboard.h"
+#include "Input/Mouse.h"
+#include "Graphics/Graphics.h"
 
 
 class WindowContainer

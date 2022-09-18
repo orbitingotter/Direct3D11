@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Graphics.h"
+#include "Graphics/Graphics.h"
 #include <d3d11.h>
 
 class Bindable

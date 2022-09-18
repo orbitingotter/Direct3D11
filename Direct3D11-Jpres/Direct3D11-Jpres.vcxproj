@@ -72,23 +72,31 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)Includes;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Libs\$(PlatformShortName)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Binaries\$(PlatformShortName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Binaries\Intermediates\$(PlatformShortName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)Includes;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Libs\$(PlatformShortName)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Binaries\$(PlatformShortName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Binaries\Intermediates\$(PlatformShortName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)Includes;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Libs\$(PlatformShortName)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Binaries\$(PlatformShortName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Binaries\Intermediates\$(PlatformShortName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)Includes;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(ProjectDir)Includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Libs\$(PlatformShortName)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Binaries\$(PlatformShortName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Binaries\Intermediates\$(PlatformShortName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -103,7 +111,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)Shaders\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,7 +131,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)Shaders\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -139,7 +147,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)Shaders\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -159,89 +167,93 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)Shaders\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bindable.cpp" />
-    <ClCompile Include="Box.cpp" />
-    <ClCompile Include="Drawable.cpp" />
-    <ClCompile Include="DrawableBase.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="IndexBuffer.cpp" />
-    <ClCompile Include="InputLayout.cpp" />
-    <ClCompile Include="PixelShader.cpp" />
-    <ClCompile Include="Sampler.cpp" />
-    <ClCompile Include="Sheet.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Topology.cpp" />
-    <ClCompile Include="TransformCBuf.cpp" />
-    <ClCompile Include="VertexBuffer.cpp" />
-    <ClCompile Include="VertexShader.cpp" />
+    <ClCompile Include="Graphics\Bindables\Bindable.cpp" />
+    <ClCompile Include="Graphics\Bindables\IndexBuffer.cpp" />
+    <ClCompile Include="Graphics\Bindables\InputLayout.cpp" />
+    <ClCompile Include="Graphics\Bindables\PixelShader.cpp" />
+    <ClCompile Include="Graphics\Bindables\Sampler.cpp" />
+    <ClCompile Include="Graphics\Bindables\Texture.cpp" />
+    <ClCompile Include="Graphics\Bindables\Topology.cpp" />
+    <ClCompile Include="Graphics\Bindables\TransformCBuf.cpp" />
+    <ClCompile Include="Graphics\Bindables\VertexBuffer.cpp" />
+    <ClCompile Include="Graphics\Bindables\VertexShader.cpp" />
+    <ClCompile Include="Graphics\Drawables\Box.cpp" />
+    <ClCompile Include="Graphics\Drawables\Drawable.cpp" />
+    <ClCompile Include="Graphics\Drawables\DrawableBase.cpp" />
+    <ClCompile Include="Graphics\Drawables\Sheet.cpp" />
+    <ClCompile Include="Graphics\Graphics.cpp" />
+    <ClCompile Include="Input\Keyboard.cpp" />
+    <ClCompile Include="Input\KeyboardEvent.cpp" />
+    <ClCompile Include="Input\Mouse.cpp" />
+    <ClCompile Include="Input\MouseEvent.cpp" />
+    <ClCompile Include="Utilities\ErrorLogger.cpp" />
     <ClCompile Include="WindowContainer.cpp" />
-    <ClCompile Include="ErrorLogger.cpp" />
-    <ClCompile Include="Keyboard.cpp" />
-    <ClCompile Include="KeyboardEvent.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Mouse.cpp" />
-    <ClCompile Include="MouseEvent.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bindable.h" />
-    <ClInclude Include="Box.h" />
-    <ClInclude Include="ConstantBuffer.h" />
-    <ClInclude Include="Cube.h" />
-    <ClInclude Include="Drawable.h" />
-    <ClInclude Include="DrawableBase.h" />
-    <ClInclude Include="DrawableIncludes.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="Graphics.h" />
-    <ClInclude Include="IndexBuffer.h" />
-    <ClInclude Include="IndexedTriangleList.h" />
-    <ClInclude Include="InputLayout.h" />
-    <ClInclude Include="PixelShader.h" />
-    <ClInclude Include="Sampler.h" />
-    <ClInclude Include="Sheet.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="Topology.h" />
-    <ClInclude Include="TransformCBuf.h" />
-    <ClInclude Include="VertexBuffer.h" />
-    <ClInclude Include="VertexShader.h" />
+    <ClInclude Include="Graphics\Bindables\Bindable.h" />
+    <ClInclude Include="Graphics\Bindables\BindableIncludes.h" />
+    <ClInclude Include="Graphics\Bindables\ConstantBuffer.h" />
+    <ClInclude Include="Graphics\Bindables\IndexBuffer.h" />
+    <ClInclude Include="Graphics\Bindables\InputLayout.h" />
+    <ClInclude Include="Graphics\Bindables\PixelShader.h" />
+    <ClInclude Include="Graphics\Bindables\Sampler.h" />
+    <ClInclude Include="Graphics\Bindables\Texture.h" />
+    <ClInclude Include="Graphics\Bindables\Topology.h" />
+    <ClInclude Include="Graphics\Bindables\TransformCBuf.h" />
+    <ClInclude Include="Graphics\Bindables\VertexBuffer.h" />
+    <ClInclude Include="Graphics\Bindables\VertexShader.h" />
+    <ClInclude Include="Graphics\Drawables\Box.h" />
+    <ClInclude Include="Graphics\Drawables\Drawable.h" />
+    <ClInclude Include="Graphics\Drawables\DrawableBase.h" />
+    <ClInclude Include="Graphics\Drawables\IndexedTriangleList.h" />
+    <ClInclude Include="Graphics\Drawables\Primitives\Cube.h" />
+    <ClInclude Include="Graphics\Drawables\Sheet.h" />
+    <ClInclude Include="Graphics\Graphics.h" />
+    <ClInclude Include="Input\Keyboard.h" />
+    <ClInclude Include="Input\KeyboardEvent.h" />
+    <ClInclude Include="Input\Mouse.h" />
+    <ClInclude Include="Input\MouseEvent.h" />
+    <ClInclude Include="Utilities\ErrorLogger.h" />
+    <ClInclude Include="Utilities\StringConverter.h" />
+    <ClInclude Include="Utilities\Timer.h" />
     <ClInclude Include="WindowContainer.h" />
-    <ClInclude Include="ErrorLogger.h" />
-    <ClInclude Include="Keyboard.h" />
-    <ClInclude Include="KeyboardEvent.h" />
-    <ClInclude Include="Mouse.h" />
-    <ClInclude Include="MouseEvent.h" />
     <ClInclude Include="RenderWindow.h" />
-    <ClInclude Include="StringConverter.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="BlendPS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    <FxCompile Include="Shaders\BlendPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="TexturePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="TextureVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    <FxCompile Include="Shaders\BlendVS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)Shaders\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)Shaders\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)Shaders\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)Shaders\%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="BlendVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    <FxCompile Include="Shaders\TexturePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\TextureVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
   </ItemGroup>

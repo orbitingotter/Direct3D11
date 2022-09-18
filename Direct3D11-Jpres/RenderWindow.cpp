@@ -1,5 +1,5 @@
 #include "RenderWindow.h"
-#include "ErrorLogger.h"
+#include "Utilities/ErrorLogger.h"
 #include "WindowContainer.h"
 
 RenderWindow::RenderWindow()
