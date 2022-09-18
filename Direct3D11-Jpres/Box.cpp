@@ -3,6 +3,7 @@
 #include <DirectXMath.h>
 
 #include "DrawableIncludes.h"
+#include "Cube.h"
 
 Box::Box(Graphics& gfx)
 {
@@ -13,38 +14,18 @@ Box::Box(Graphics& gfx)
 			float x, y, z;
 			unsigned char r, g, b, a;
 		};
-		std::vector<Vertex> vertices =
-		{
-			{ -1.0f,-1.0f,-1.0f, 255, 0,0,255},
-			{ 1.0f,-1.0f,-1.0f, 0,255,0,255},
-			{ -1.0f,1.0f,-1.0f, 0,0,255,255},
-			{ 1.0f,1.0f,-1.0f, 255, 255, 0,255},
-			{ -1.0f,-1.0f,1.0f, 255,0,255,255},
-			{ 1.0f,-1.0f,1.0f,0,255,255,255},
-			{ -1.0f,1.0f,1.0f,255,255,255,255},
-			{ 1.0f,1.0f,1.0f,0,0,0,255},
-		};
 
-		AddStaticBind(std::make_unique<VertexBuffer>(gfx, vertices));
+		IndexedTriangleList<Vertex> model = Cube::MakeBlend<Vertex>();
 
-		const std::vector<unsigned short> indices =
-		{
-			0,2,1, 2,3,1,
-			1,3,5, 3,7,5,
-			2,6,3, 3,6,7,
-			4,5,7, 4,7,6,
-			0,4,2, 2,4,6,
-			0,1,4, 1,5,4
-		};
-
-		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, indices));
+		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
+		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
 
 
-		auto vs = std::make_unique<VertexShader>(gfx, "VertexShader.cso");
+		auto vs = std::make_unique<VertexShader>(gfx, "BlendVS.cso");
 		auto pvsbc = vs->GetByteCode();
 		AddStaticBind(std::move(vs));
 
-		AddStaticBind(std::make_unique<PixelShader>(gfx, "PixelShader.cso"));
+		AddStaticBind(std::make_unique<PixelShader>(gfx, "BlendPS.cso"));
 
 		std::vector<D3D11_INPUT_ELEMENT_DESC> layout =
 		{
