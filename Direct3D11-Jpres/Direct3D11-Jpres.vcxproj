@@ -184,7 +184,6 @@
     <ClCompile Include="Graphics\Bindables\VertexShader.cpp" />
     <ClCompile Include="Graphics\Drawables\Box.cpp" />
     <ClCompile Include="Graphics\Drawables\Drawable.cpp" />
-    <ClCompile Include="Graphics\Drawables\DrawableBase.cpp" />
     <ClCompile Include="Graphics\Drawables\Sheet.cpp" />
     <ClCompile Include="Graphics\Graphics.cpp" />
     <ClCompile Include="Input\Keyboard.cpp" />
@@ -215,6 +214,7 @@
     <ClInclude Include="Graphics\Drawables\DrawableBase.h" />
     <ClInclude Include="Graphics\Drawables\IndexedTriangleList.h" />
     <ClInclude Include="Graphics\Drawables\Primitives\Cube.h" />
+    <ClInclude Include="Graphics\Drawables\Primitives\Plane.h" />
     <ClInclude Include="Graphics\Drawables\Sheet.h" />
     <ClInclude Include="Graphics\Graphics.h" />
     <ClInclude Include="Input\Keyboard.h" />

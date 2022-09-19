@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IndexedTriangleList.h"
+#include "Graphics/Drawables/IndexedTriangleList.h"
 
 class Cube
 {

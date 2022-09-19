@@ -2,6 +2,7 @@
 
 #include <DirectXMath.h>
 #include "Graphics/Bindables/BindableIncludes.h"
+#include "Graphics/Drawables/Primitives/Plane.h"
 
 Sheet::Sheet(Graphics& gfx)
 {
@@ -9,29 +10,27 @@ Sheet::Sheet(Graphics& gfx)
 	{
 		struct Vertex
 		{
-			float x, y, z;
-			float u, v;
+			DirectX::XMFLOAT3 pos;
+			struct
+			{
+				float u, v;
+			}tex;
 		};
 
-		std::vector<Vertex> vertices =
-		{
-			{-0.5f, -0.5f, 0.0f, 0.0f, 1.0f},
-			{-0.5f, 0.5f, 0.0f, 0.0f, 0.0f},
-			{0.5f, -0.5f, 0.0f, 1.0f, 1.0f},
-			{0.5f, 0.5f, 0.0f, 1.0f, 0.0f}
-		};
+		IndexedTriangleList<Vertex> model = Plane::Make<Vertex>();
 
-		AddStaticBind(std::make_unique<VertexBuffer>(gfx, vertices));
+		model.Transform(DirectX::XMMatrixScaling(0.5f, 0.5f, 5.0f));
 
-		const std::vector<unsigned short> indices =
-		{
-			0,1,2,
-			2,1,3
-		};
+		model.vertices[0].tex = { 0.0f, 1.0f };
+		model.vertices[1].tex = { 1.0f, 1.0f };
+		model.vertices[2].tex = { 0.0f, 0.0f };
+		model.vertices[3].tex = { 1.0f, 0.0f };
 
-		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, indices));
+		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 
-		AddStaticBind(std::make_unique<Texture>(gfx, "Resources/howl.png"));
+		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
+
+		AddStaticBind(std::make_unique<Texture>(gfx, "Resources/ghibli.png"));
 		AddStaticBind(std::make_unique<Sampler>(gfx));
 
 		auto vs = std::make_unique<VertexShader>(gfx, "Shaders/TextureVS.cso");

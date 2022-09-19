@@ -19,7 +19,6 @@ Box::Box(Graphics& gfx)
 		};
 
 		IndexedTriangleList<Vertex> model = Cube::MakeBlend<Vertex>();
-		model.Transform(DirectX::XMMatrixScaling(1.0f, 1.0f, 1.2f));
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));

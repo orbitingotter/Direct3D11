@@ -93,9 +93,6 @@
     <ClCompile Include="Graphics\Drawables\Drawable.cpp">
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Drawables\DrawableBase.cpp">
-      <Filter>Source Files\Drawables</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Drawables\Sheet.cpp">
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
@@ -179,9 +176,6 @@
     <ClInclude Include="Graphics\Drawables\Sheet.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Drawables\Primitives\Cube.h">
-      <Filter>Header Files\Drawables\Primitives</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities\ErrorLogger.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
@@ -205,6 +199,12 @@
     </ClInclude>
     <ClInclude Include="Graphics\Graphics.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Drawables\Primitives\Plane.h">
+      <Filter>Header Files\Drawables\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Drawables\Primitives\Cube.h">
+      <Filter>Header Files\Drawables\Primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
