@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-#include "Includes/WICTextureLoader.h"
+#include "DirectXTK/WICTextureLoader.h"
 #include "Utilities/StringConverter.h"
 #include "Utilities/ErrorLogger.h"
 

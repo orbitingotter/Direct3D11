@@ -217,6 +217,27 @@
     <ClInclude Include="Graphics\Drawables\Primitives\Plane.h" />
     <ClInclude Include="Graphics\Drawables\Sheet.h" />
     <ClInclude Include="Graphics\Graphics.h" />
+    <ClInclude Include="Includes\DirectXTK\Audio.h" />
+    <ClInclude Include="Includes\DirectXTK\BufferHelpers.h" />
+    <ClInclude Include="Includes\DirectXTK\CommonStates.h" />
+    <ClInclude Include="Includes\DirectXTK\DDSTextureLoader.h" />
+    <ClInclude Include="Includes\DirectXTK\DirectXHelpers.h" />
+    <ClInclude Include="Includes\DirectXTK\Effects.h" />
+    <ClInclude Include="Includes\DirectXTK\GamePad.h" />
+    <ClInclude Include="Includes\DirectXTK\GeometricPrimitive.h" />
+    <ClInclude Include="Includes\DirectXTK\GraphicsMemory.h" />
+    <ClInclude Include="Includes\DirectXTK\Keyboard.h" />
+    <ClInclude Include="Includes\DirectXTK\Model.h" />
+    <ClInclude Include="Includes\DirectXTK\Mouse.h" />
+    <ClInclude Include="Includes\DirectXTK\PostProcess.h" />
+    <ClInclude Include="Includes\DirectXTK\PrimitiveBatch.h" />
+    <ClInclude Include="Includes\DirectXTK\ScreenGrab.h" />
+    <ClInclude Include="Includes\DirectXTK\SimpleMath.h" />
+    <ClInclude Include="Includes\DirectXTK\SpriteBatch.h" />
+    <ClInclude Include="Includes\DirectXTK\SpriteFont.h" />
+    <ClInclude Include="Includes\DirectXTK\VertexTypes.h" />
+    <ClInclude Include="Includes\DirectXTK\WICTextureLoader.h" />
+    <ClInclude Include="Includes\DirectXTK\XboxDDSTextureLoader.h" />
     <ClInclude Include="Input\Keyboard.h" />
     <ClInclude Include="Input\KeyboardEvent.h" />
     <ClInclude Include="Input\Mouse.h" />
@@ -256,6 +277,9 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Includes\DirectXTK\SimpleMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

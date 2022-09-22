@@ -206,6 +206,69 @@
     <ClInclude Include="Graphics\Drawables\Primitives\Cube.h">
       <Filter>Header Files\Drawables\Primitives</Filter>
     </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\Audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\BufferHelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\CommonStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\DDSTextureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\DirectXHelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\Effects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\GamePad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\GeometricPrimitive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\GraphicsMemory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\Keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\Mouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\PostProcess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\PrimitiveBatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\ScreenGrab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\SimpleMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\SpriteBatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\SpriteFont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\VertexTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\WICTextureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\DirectXTK\XboxDDSTextureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\BlendPS.hlsl">
@@ -220,5 +283,10 @@
     <FxCompile Include="Shaders\TextureVS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Includes\DirectXTK\SimpleMath.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

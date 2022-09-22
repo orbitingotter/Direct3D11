@@ -30,7 +30,7 @@ Sheet::Sheet(Graphics& gfx)
 
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
 
-		AddStaticBind(std::make_unique<Texture>(gfx, "Resources/ghibli.png"));
+		AddStaticBind(std::make_unique<Texture>(gfx, "Resources/howl.png"));
 		AddStaticBind(std::make_unique<Sampler>(gfx));
 
 		auto vs = std::make_unique<VertexShader>(gfx, "Shaders/TextureVS.cso");
