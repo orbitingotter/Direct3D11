@@ -43,7 +43,7 @@ void Engine::Update()
 
 	graphics.ClearBuffer(r, g, b, 1.0f);
 
-	static float speedFactor = 0.001;
+	static float speedFactor = 0.001f;
 	boxes[0]->Update(timer.Peek() * speedFactor);
 
 	for (auto& box : boxes)
@@ -58,10 +58,37 @@ void Engine::Update()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	if (ImGui::Begin("Test"))
+	if (ImGui::Begin("Camera"))
 	{
 		ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
-		ImGui::SliderFloat("Speed Factor", &speedFactor, 0.0f, 0.001f, "%.5f", 1.0f);
+		ImGui::SliderFloat("Speed Factor", &speedFactor, 0.0f, 0.001f, "%.5f");
+
+		// camera test
+		static float pitch = 0.0f;
+		static float roll = 0.0f;
+		static float yaw = 0.0f;
+		static float r = 4.0f;
+
+		ImGui::Text("Position");
+		ImGui::SliderFloat("r", &r, 0.1f, 80.0f, "%.1f");
+		ImGui::SliderAngle("roll", &roll, -180.0f, 180.0f);
+		ImGui::SliderAngle("pitch", &pitch, -180.0f, 180.0f);
+		ImGui::SliderAngle("yaw", &yaw, -180.0f, 180.0f);
+		if (ImGui::Button("Reset"))
+		{
+			pitch = 0.0f;
+			roll = 0.0f;
+			yaw = 0.0f;
+			r = 4.0f;
+		}
+
+
+		graphics.SetCamera(DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
+			DirectX::XMMatrixTranslation(0.0f, 0.0f, r)
+		);
+
+
+
 	}
 	ImGui::End();
 
