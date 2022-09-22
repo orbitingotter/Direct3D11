@@ -1,12 +1,22 @@
 #include "WindowContainer.h"
 #include "Utilities/ErrorLogger.h"
 
+#include "imgui/imgui_impl_win32.h"
 
+
+extern LRESULT CALLBACK ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WindowContainer::WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+
+	// imgui
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+	{
+		return true;
+	}
+
 	switch (uMsg)
 	{
-		// Keyboard
+	// Keyboard
 	case WM_KEYDOWN:
 	{
 		if (keyboard.isKeysAutoRepeat())

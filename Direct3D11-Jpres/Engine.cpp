@@ -1,6 +1,12 @@
 #include "Engine.h"
 #include "Utilities/ErrorLogger.h"
 
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_win32.h"
+#include "imgui/imgui_impl_dx11.h"
+
+
 bool Engine::Initialize(std::string windowTitle, std::string windowClass, int width, int height)
 {
 	if (!renderWindow.Initialize(this, windowTitle, windowClass, width, height))
@@ -8,7 +14,7 @@ bool Engine::Initialize(std::string windowTitle, std::string windowClass, int wi
 		return false;
 	}
 
-	if (!graphics.Initialize(renderWindow.GetHandle()))
+	if (!graphics.Initialize(renderWindow.GetHandle(), width, height))
 	{
 		return false;
 	}
@@ -16,7 +22,7 @@ bool Engine::Initialize(std::string windowTitle, std::string windowClass, int wi
 	boxes.push_back(std::make_unique<Box>(graphics));
 	//sheets.push_back(std::make_unique<Sheet>(graphics));
 
-	graphics.SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+	graphics.SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, (float)((float)height / (float)width), 0.5f, 40.0f));
 
 	return true;
 }
@@ -45,6 +51,23 @@ void Engine::Update()
 		sheet->Draw(graphics);
 
 	//graphics.DrawTriangleNew(timer.Peek() * 0.2f);
+
+
+	// imgui render
+
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+
+	static bool showDemo = true;
+	if (showDemo)
+	{
+		ImGui::ShowDemoWindow(&showDemo);
+	}
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+
 
 	graphics.EndFrame();
 }

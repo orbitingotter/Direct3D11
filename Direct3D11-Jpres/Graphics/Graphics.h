@@ -9,7 +9,8 @@ class Graphics
 {
 	friend class Bindable;
 public:
-	bool Initialize(HWND hWnd);
+	~Graphics();
+	bool Initialize(HWND hWnd, int width, int height);
 	void EndFrame();
 	void ClearBuffer(float r, float g, float b, float a);
 	void DrawIndexed(UINT count);

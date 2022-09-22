@@ -2,6 +2,9 @@
 #include "Utilities/ErrorLogger.h"
 #include "WindowContainer.h"
 
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_win32.h"
+
 RenderWindow::RenderWindow()
 	: mHandle(NULL), mInstance(GetModuleHandle(nullptr)),
 	mWindowTitle(""), mWindowTitleWide(L""),
@@ -43,6 +46,13 @@ bool RenderWindow::Initialize(WindowContainer* pContainer, std::string windowTit
 	ShowWindow(mHandle, SW_SHOW);
 	SetForegroundWindow(mHandle);
 	SetFocus(mHandle);
+
+	// Setup imgui
+
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGui::StyleColorsDark();
+	ImGui_ImplWin32_Init(mHandle);
 
 	return true;
 
@@ -124,6 +134,11 @@ RenderWindow::~RenderWindow()
 		UnregisterClass(mWindowClassWide.c_str(), mInstance);
 		DestroyWindow(mHandle);
 	}
+
+	// Delete imgui
+
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
 }
 
 HWND RenderWindow::GetHandle() const

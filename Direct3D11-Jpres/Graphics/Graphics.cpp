@@ -5,16 +5,24 @@
 #include <vector>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include <memory>
 
 #include "Graphics/Bindables/BindableIncludes.h"
-
 #include "Graphics/Drawables/Drawable.h"
 
-#include <memory>
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_dx11.h"
+
+
 
 using namespace Microsoft::WRL;
 
-bool Graphics::Initialize(HWND hWnd)
+Graphics::~Graphics()
+{
+	ImGui_ImplDX11_Shutdown();
+}
+
+bool Graphics::Initialize(HWND hWnd, int width, int height)
 {
 
 	DXGI_SWAP_CHAIN_DESC sd = {};
@@ -74,8 +82,8 @@ bool Graphics::Initialize(HWND hWnd)
 
 	ComPtr<ID3D11Texture2D> pDepthStencil;
 	D3D11_TEXTURE2D_DESC tDesc = {};
-	tDesc.Width = 800;
-	tDesc.Height = 600;
+	tDesc.Width = width;
+	tDesc.Height = height;
 	tDesc.MipLevels = 1u;
 	tDesc.ArraySize = 1u;
 	tDesc.Format = DXGI_FORMAT_D32_FLOAT;
@@ -97,13 +105,17 @@ bool Graphics::Initialize(HWND hWnd)
 
 	// Configure Viewport
 	D3D11_VIEWPORT vp;
-	vp.Width = 800;
-	vp.Height = 600;
+	vp.Width = (float)width;
+	vp.Height = (float)height;
 	vp.MinDepth = 0;
 	vp.MaxDepth = 1;
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
 	pContext->RSSetViewports(1u, &vp);
+
+
+	// Setup imgui
+	ImGui_ImplDX11_Init(pDevice.Get(), pContext.Get());
 
 
 	return true;
