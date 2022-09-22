@@ -148,3 +148,13 @@ DirectX::XMMATRIX Graphics::GetProjection() const
 {
 	return mProjection;
 }
+
+void Graphics::SetCamera(DirectX::XMMATRIX camera)
+{
+	mCamera = camera;
+}
+
+DirectX::XMMATRIX Graphics::GetCamera() const
+{
+	return mCamera;
+}

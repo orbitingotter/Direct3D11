@@ -19,8 +19,6 @@ Sheet::Sheet(Graphics& gfx)
 
 		IndexedTriangleList<Vertex> model = Plane::Make<Vertex>();
 
-		model.Transform(DirectX::XMMatrixScaling(0.5f, 0.5f, 5.0f));
-
 		model.vertices[0].tex = { 0.0f, 1.0f };
 		model.vertices[1].tex = { 1.0f, 1.0f };
 		model.vertices[2].tex = { 0.0f, 0.0f };
@@ -70,6 +68,5 @@ DirectX::XMMATRIX Sheet::GetTransformXM() const
 		DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
 		DirectX::XMMatrixTranslation(0.0f, 0.0f, 0.0f) *
 		DirectX::XMMatrixRotationRollPitchYaw(theta, phi, chi) *
-		DirectX::XMMatrixScaling(2.0f, 2.0f, 1.0f) *
-		DirectX::XMMatrixTranslation(0.0f, 0.0f, 2.0f);
+		DirectX::XMMatrixScaling(2.0f, 2.0f, 1.0f);
 }

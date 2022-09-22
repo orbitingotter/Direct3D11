@@ -23,6 +23,7 @@ bool Engine::Initialize(std::string windowTitle, std::string windowClass, int wi
 	//sheets.push_back(std::make_unique<Sheet>(graphics));
 
 	graphics.SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, (float)((float)height / (float)width), 0.5f, 40.0f));
+	graphics.SetCamera(DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f));
 
 	return true;
 }
@@ -42,7 +43,8 @@ void Engine::Update()
 
 	graphics.ClearBuffer(r, g, b, 1.0f);
 
-	boxes[0]->Update(timer.Peek() * 0.001f);
+	static float speedFactor = 0.001;
+	boxes[0]->Update(timer.Peek() * speedFactor);
 
 	for (auto& box : boxes)
 		box->Draw(graphics);
@@ -50,20 +52,19 @@ void Engine::Update()
 	for (auto& sheet : sheets)
 		sheet->Draw(graphics);
 
-	//graphics.DrawTriangleNew(timer.Peek() * 0.2f);
-
-
 	// imgui render
 
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	static bool showDemo = true;
-	if (showDemo)
+	if (ImGui::Begin("Test"))
 	{
-		ImGui::ShowDemoWindow(&showDemo);
+		ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
+		ImGui::SliderFloat("Speed Factor", &speedFactor, 0.0f, 0.001f, "%.5f", 1.0f);
 	}
+	ImGui::End();
+
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 

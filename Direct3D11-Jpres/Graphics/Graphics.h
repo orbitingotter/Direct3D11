@@ -18,6 +18,9 @@ public:
 	void SetProjection(DirectX::XMMATRIX projection);
 	DirectX::XMMATRIX GetProjection() const;
 
+	void SetCamera(DirectX::XMMATRIX camera);
+	DirectX::XMMATRIX GetCamera() const;
+
 
 private:
 	Microsoft::WRL::ComPtr<ID3D11Device> pDevice;
@@ -27,4 +30,5 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSView;
 
 	DirectX::XMMATRIX mProjection;
+	DirectX::XMMATRIX mCamera;
 };
