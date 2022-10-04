@@ -12,28 +12,26 @@ Box::Box(Graphics& gfx)
 		struct Vertex
 		{
 			DirectX::XMFLOAT3 pos;
-			struct
-			{
-				unsigned char r, g, b, a;
-			}color;
+			DirectX::XMFLOAT3 normal;
 		};
 
-		IndexedTriangleList<Vertex> model = Cube::MakeBlend<Vertex>();
+		IndexedTriangleList<Vertex> model = Cube::MakeIndependent<Vertex>();
+		model.SetNormalsIndependentFlat();
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
 
-
-		auto vs = std::make_unique<VertexShader>(gfx, "Shaders/BlendVS.cso");
+		auto vs = std::make_unique<VertexShader>(gfx, "Shaders/PhongVS.cso");
 		auto pvsbc = vs->GetByteCode();
 		AddStaticBind(std::move(vs));
 
-		AddStaticBind(std::make_unique<PixelShader>(gfx, "Shaders/BlendPS.cso"));
+		AddStaticBind(std::make_unique<PixelShader>(gfx, "Shaders/PhongPS.cso"));
+
 
 		std::vector<D3D11_INPUT_ELEMENT_DESC> layout =
 		{
 			{"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-			{"Color", 0, DXGI_FORMAT_B8G8R8A8_UNORM, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
+			{"Normal", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
 		};
 
 		AddStaticBind(std::make_unique<InputLayout>(gfx, layout, pvsbc));

@@ -21,6 +21,7 @@ bool Engine::Initialize(std::string windowTitle, std::string windowClass, int wi
 
 	boxes.push_back(std::make_unique<Box>(graphics));
 	//sheets.push_back(std::make_unique<Sheet>(graphics));
+	light = std::make_unique<PointLight>(graphics, 0.1f);
 
 	graphics.SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, (float)((float)height / (float)width), 0.5f, 40.0f));
 	graphics.SetCamera(DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f));
@@ -36,21 +37,25 @@ bool Engine::ProcessMessages()
 void Engine::Update()
 {
 
-	float r = (sin(timer.Peek()) / 2.0f) + 0.5f;
-	float g = (sin(timer.Peek() * 0.8f) / 2.0f) + 0.5f;
-	float b = (sin(timer.Peek() + 5.0f) / 2.0f) + 0.5f;
+	//float r = (sin(timer.Peek()) / 2.0f) + 0.5f;
+	//float g = (sin(timer.Peek() * 0.8f) / 2.0f) + 0.5f;
+	//float b = (sin(timer.Peek() + 5.0f) / 2.0f) + 0.5f;
 
 
-	graphics.ClearBuffer(r, g, b, 1.0f);
+	graphics.ClearBuffer(0.1f, 0.1f, 0.1f, 1.0f);
+
 
 	static float speedFactor = 0.001f;
 	boxes[0]->Update(timer.Peek() * speedFactor);
 
+	light->Bind(graphics);
 	for (auto& box : boxes)
 		box->Draw(graphics);
 
 	for (auto& sheet : sheets)
 		sheet->Draw(graphics);
+	light->Draw(graphics);
+
 
 	// imgui render
 
@@ -84,13 +89,14 @@ void Engine::Update()
 
 
 		graphics.SetCamera(DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
-			DirectX::XMMatrixTranslation(0.0f, 0.0f, r)
+			DirectX::XMMatrixLookAtLH({ 0.0f, 0.0f, -r }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f })
 		);
-
 
 
 	}
 	ImGui::End();
+
+	light->SpawnControlWindow();
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

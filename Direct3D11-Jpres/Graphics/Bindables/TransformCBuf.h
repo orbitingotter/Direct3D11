@@ -11,6 +11,12 @@ public:
 	void Bind(Graphics& gfx) noexcept override;
 
 private:
-	static std::unique_ptr<VertexConstantBuffer<DirectX::XMMATRIX>> pVcbuf;
+	struct Transforms
+	{
+		DirectX::XMMATRIX model;
+		DirectX::XMMATRIX modelViewProj;
+	};
+
+	static std::unique_ptr<VertexConstantBuffer<Transforms>> pVcbuf;
 	const Drawable& parent;
 };

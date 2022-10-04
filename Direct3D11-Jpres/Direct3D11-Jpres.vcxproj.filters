@@ -141,6 +141,12 @@
     <ClCompile Include="Includes\imgui\imgui_tables.cpp">
       <Filter>Source Files\Includes</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\PointLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Drawables\SolidSphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderWindow.h">
@@ -320,6 +326,15 @@
     <ClInclude Include="WindowContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\PointLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Drawables\Primitives\Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Drawables\SolidSphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\BlendPS.hlsl">
@@ -334,10 +349,15 @@
     <FxCompile Include="Shaders\TextureVS.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\PhongVS.hlsl" />
+    <FxCompile Include="Shaders\PhongPS.hlsl" />
+    <FxCompile Include="Shaders\SolidVS.hlsl" />
+    <FxCompile Include="Shaders\SolidPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Includes\DirectXTK\SimpleMath.inl">
       <Filter>Header Files\Includes</Filter>
     </None>
+    <None Include="imgui.ini" />
   </ItemGroup>
 </Project>

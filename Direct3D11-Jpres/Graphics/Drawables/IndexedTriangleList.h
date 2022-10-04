@@ -28,6 +28,27 @@ public:
 		}
 	}
 
+	void SetNormalsIndependentFlat()
+	{
+		for (size_t i = 0; i < indices.size(); i+=3)
+		{
+			T& v0 = vertices[indices[i]];
+			T& v1 = vertices[indices[i + 1]];
+			T& v2 = vertices[indices[i + 2]];
+
+			const DirectX::XMVECTOR p0 = DirectX::XMLoadFloat3(&v0.pos);
+			const DirectX::XMVECTOR p1 = DirectX::XMLoadFloat3(&v1.pos);
+			const DirectX::XMVECTOR p2 = DirectX::XMLoadFloat3(&v2.pos);
+
+			const DirectX::XMVECTOR normal = DirectX::XMVector3Normalize(DirectX::XMVector3Cross(DirectX::XMVectorSubtract(p1, p0),
+				DirectX::XMVectorSubtract(p2, p0)));
+			DirectX::XMStoreFloat3(&v0.normal, normal);
+			DirectX::XMStoreFloat3(&v1.normal, normal);
+			DirectX::XMStoreFloat3(&v2.normal, normal);
+
+		}
+	}
+
 public:
 	std::vector<T> vertices;
 	std::vector<unsigned short> indices;
