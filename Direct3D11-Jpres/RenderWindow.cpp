@@ -51,8 +51,9 @@ bool RenderWindow::Initialize(WindowContainer* pContainer, std::string windowTit
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGui::StyleColorsDark();
+	ImGuiIO& io = ImGui::GetIO();
 	ImGui_ImplWin32_Init(mHandle);
+	ImGui::StyleColorsDark();
 
 	return true;
 

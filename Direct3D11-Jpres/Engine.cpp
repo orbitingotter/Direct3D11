@@ -68,6 +68,7 @@ void Engine::Update()
 		ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
 		ImGui::SliderFloat("Speed Factor", &speedFactor, 0.0f, 0.001f, "%.5f");
 
+
 		// camera test
 		static float pitch = 0.0f;
 		static float roll = 0.0f;
@@ -86,7 +87,6 @@ void Engine::Update()
 			yaw = 0.0f;
 			r = 4.0f;
 		}
-
 
 		graphics.SetCamera(DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
 			DirectX::XMMatrixLookAtLH({ 0.0f, 0.0f, -r }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f })
