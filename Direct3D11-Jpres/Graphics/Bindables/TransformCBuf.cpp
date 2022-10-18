@@ -18,6 +18,7 @@ void TransformCBuf::Bind(Graphics& gfx) noexcept
 	const Transforms tf =
 	{
 		DirectX::XMMatrixTranspose(model),
+		DirectX::XMMatrixTranspose(model * gfx.GetCamera()),
 		DirectX::XMMatrixTranspose(model * gfx.GetCamera() * gfx.GetProjection())
 	};
 
