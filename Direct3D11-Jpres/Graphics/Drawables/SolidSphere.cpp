@@ -14,8 +14,8 @@ SolidSphere::SolidSphere(Graphics& gfx, float radius)
 		};
 		auto model = Sphere::MakeTesselated<Vertex>(12, 24);
 		model.Transform(DirectX::XMMatrixScaling(radius, radius, radius));
-		AddBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
-		AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
+		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
+		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
 
 		auto vs = std::make_unique<VertexShader>(gfx, "Shaders/SolidVS.cso");
 		auto pvsbc = vs->GetByteCode();

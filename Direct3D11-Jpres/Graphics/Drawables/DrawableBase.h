@@ -19,7 +19,7 @@ protected:
 
 	static void AddStaticIndexBuffer(std::unique_ptr<IndexBuffer> bindable)
 	{
-		indexCount = bindable->GetCount();
+		//indexCount = bindable->GetCount();
 		mStaticBinds.push_back(std::move(bindable));
 	}
 
