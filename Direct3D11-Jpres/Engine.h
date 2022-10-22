@@ -5,6 +5,7 @@
 #include "Graphics/PointLight.h"
 #include "Graphics/Drawables/Box.h"
 #include "Graphics/Drawables/Sheet.h"
+#include "Graphics/Drawables/Mesh.h"
 #include <memory>
 
 class Engine : public WindowContainer
@@ -18,6 +19,7 @@ private:
 
 	std::vector<std::unique_ptr<Box>> boxes;
 	std::vector<std::unique_ptr<Sheet>> sheets;
+	std::vector<std::unique_ptr<Mesh>> meshes;
 	std::unique_ptr<PointLight> light;
 
 	Timer timer;

@@ -1,7 +1,6 @@
 #include "Engine.h"
 #include "Utilities/ErrorLogger.h"
 
-
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
@@ -19,7 +18,8 @@ bool Engine::Initialize(std::string windowTitle, std::string windowClass, int wi
 		return false;
 	}
 
-	boxes.push_back(std::make_unique<Box>(graphics));
+	//boxes.push_back(std::make_unique<Box>(graphics));
+	meshes.push_back(std::make_unique<Mesh>(graphics));
 	//sheets.push_back(std::make_unique<Sheet>(graphics));
 	light = std::make_unique<PointLight>(graphics, 0.1f);
 
@@ -46,14 +46,19 @@ void Engine::Update()
 
 
 	static float speedFactor = 0.001f;
-	boxes[0]->Update(timer.Peek() * speedFactor);
+	//boxes[0]->Update(timer.Peek() * speedFactor);
+	//meshes[0]->Update(timer.Peek() * speedFactor);
 
-	light->Bind(graphics);
+
+	light->Bind(graphics, graphics.GetCamera());
 	for (auto& box : boxes)
 		box->Draw(graphics);
 
 	for (auto& sheet : sheets)
 		sheet->Draw(graphics);
+
+	for (auto& mesh : meshes)
+		mesh->Draw(graphics);
 	light->Draw(graphics);
 
 

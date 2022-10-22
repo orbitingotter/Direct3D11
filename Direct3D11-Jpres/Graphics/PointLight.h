@@ -11,7 +11,7 @@ public:
 	void SpawnControlWindow() noexcept;
 	void Reset() noexcept;
 	void Draw(Graphics& gfx) const;
-	void Bind(Graphics& gfx) const;
+	void Bind(Graphics& gfx, DirectX::XMMATRIX view) const;
 private:
 	struct PointLightCBuf
 	{
