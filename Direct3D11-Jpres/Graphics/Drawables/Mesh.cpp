@@ -21,7 +21,7 @@ Mesh::Mesh(Graphics& gfx)
 		};
 
 		Assimp::Importer imp;
-		const aiScene* model = imp.ReadFile("Resources/UtahTeapot.stl", aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
+		const aiScene* model = imp.ReadFile("Resources/utah-teapot.stl", aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
 
 		const auto pMesh = model->mMeshes[0];
 
@@ -30,7 +30,7 @@ Mesh::Mesh(Graphics& gfx)
 		for (unsigned int i = 0; i < pMesh->mNumVertices; i++)
 		{
 			vertices.push_back({ *reinterpret_cast<DirectX::XMFLOAT3*>(&pMesh->mVertices[i]),
-				*reinterpret_cast<DirectX::XMFLOAT3*>(&pMesh->mVertices[i]) });
+				*reinterpret_cast<DirectX::XMFLOAT3*>(&pMesh->mNormals[i]) });
 		}
 
 		std::vector<unsigned short> indices;
@@ -72,20 +72,20 @@ Mesh::Mesh(Graphics& gfx)
 void Mesh::Update(float dt)
 {
 	roll += dRoll * dt;
-	pitch += dPitch * dt;
-	yaw += dYaw * dt;
+	//pitch += dPitch * dt;
+	//yaw += dYaw * dt;
 
-	theta += dTheta * dt;
-	phi += dPhi * dt;
-	chi += dChi * dt;
+	//theta += dTheta * dt;
+	//phi += dPhi * dt;
+	//chi += dChi * dt;
 }
 
 
 DirectX::XMMATRIX Mesh::GetTransformXM() const
 {
-
+	float scale = 1.0f;
 	return
-		DirectX::XMMatrixScaling(0.15f, 0.15f, 0.15f) *
+		DirectX::XMMatrixScaling(scale, scale, scale) *
 		DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
 		DirectX::XMMatrixTranslation(r, 0.0f, 0.0f) *
 		DirectX::XMMatrixRotationRollPitchYaw(theta, phi, chi);

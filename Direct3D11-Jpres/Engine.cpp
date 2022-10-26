@@ -47,7 +47,7 @@ void Engine::Update()
 
 	static float speedFactor = 0.001f;
 	//boxes[0]->Update(timer.Peek() * speedFactor);
-	//meshes[0]->Update(timer.Peek() * speedFactor);
+	meshes[0]->Update(timer.Peek() * speedFactor);
 
 
 	light->Bind(graphics, graphics.GetCamera());
