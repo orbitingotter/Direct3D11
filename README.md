@@ -10,6 +10,12 @@ Learning Graphics Programming in Direct3D11
 - ImGui
 - Assimp : vcpkg
 
+## Installation
+1. git clone the project.
+2. install assimp through vcpkg, DLLs should load automatically if integrated
+3. hope you have visual studio installed, cause cmake scary
+4. run
+
 ## Resources and Tutorials
 - ChiliTomatoNoodle
 - JPres
