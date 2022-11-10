@@ -27,9 +27,17 @@ Mesh::Mesh(Graphics& gfx)
 
 		std::vector<Vertex> vertices;
 		vertices.reserve(pMesh->mNumVertices);
+
+		const float scale = 0.2f;
+
 		for (unsigned int i = 0; i < pMesh->mNumVertices; i++)
 		{
-			vertices.push_back({ *reinterpret_cast<DirectX::XMFLOAT3*>(&pMesh->mVertices[i]),
+			float x = scale * pMesh->mVertices[i].x;
+			float y = scale * pMesh->mVertices[i].y;
+			float z = scale * pMesh->mVertices[i].z;
+			DirectX::XMFLOAT3 scaledPos = { x,y,z };
+
+			vertices.push_back({ scaledPos,
 				*reinterpret_cast<DirectX::XMFLOAT3*>(&pMesh->mNormals[i]) });
 		}
 
