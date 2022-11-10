@@ -341,6 +341,9 @@
     <ClInclude Include="Graphics\Drawables\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\VertexLayout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\BlendPS.hlsl">
