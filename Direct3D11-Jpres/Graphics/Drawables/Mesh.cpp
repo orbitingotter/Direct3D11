@@ -10,23 +10,31 @@
 #include <assimp/postprocess.h>
 
 
+#include "Graphics/Vertex.h"
+
+
 Mesh::Mesh(Graphics& gfx)
 {
 	if (!IsStaticInitialized())
 	{
-		struct Vertex
+		/*struct Vertex
 		{
 			DirectX::XMFLOAT3 pos;
 			DirectX::XMFLOAT3 normal;
-		};
+		};*/
+
+		using d3ddemo::VertexLayout;
+		d3ddemo::VertexBuffer vbuf(std::move(VertexLayout{}.
+			Append(VertexLayout::Position3D).
+			Append(VertexLayout::Normal)));
 
 		Assimp::Importer imp;
 		const aiScene* model = imp.ReadFile("Resources/utah-teapot.stl", aiProcess_Triangulate | aiProcess_JoinIdenticalVertices);
 
 		const auto pMesh = model->mMeshes[0];
 
-		std::vector<Vertex> vertices;
-		vertices.reserve(pMesh->mNumVertices);
+		//std::vector<Vertex> vertices;
+		//vertices.reserve(pMesh->mNumVertices);
 
 		const float scale = 0.2f;
 
@@ -37,8 +45,12 @@ Mesh::Mesh(Graphics& gfx)
 			float z = scale * pMesh->mVertices[i].z;
 			DirectX::XMFLOAT3 scaledPos = { x,y,z };
 
-			vertices.push_back({ scaledPos,
-				*reinterpret_cast<DirectX::XMFLOAT3*>(&pMesh->mNormals[i]) });
+			vbuf.EmplaceBack(DirectX::XMFLOAT3
+				{ pMesh->mVertices[i].x * scale, pMesh->mVertices[i].y * scale, pMesh->mVertices[i].z * scale },
+				*reinterpret_cast<DirectX::XMFLOAT3*>(&pMesh->mNormals[i])
+				);
+			//vertices.push_back({ scaledPos,
+			//	*reinterpret_cast<DirectX::XMFLOAT3*>(&pMesh->mNormals[i]) });
 		}
 
 		std::vector<unsigned short> indices;
@@ -53,7 +65,7 @@ Mesh::Mesh(Graphics& gfx)
 
 		}
 
-		AddStaticBind(std::make_unique<VertexBuffer>(gfx, vertices));
+		AddStaticBind(std::make_unique<VertexBuffer>(gfx, vbuf));
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, indices));
 
 		auto vs = std::make_unique<VertexShader>(gfx, "Shaders/PhongVS.cso");
@@ -63,13 +75,13 @@ Mesh::Mesh(Graphics& gfx)
 		AddStaticBind(std::make_unique<PixelShader>(gfx, "Shaders/PhongPS.cso"));
 
 
-		std::vector<D3D11_INPUT_ELEMENT_DESC> layout =
+		/*std::vector<D3D11_INPUT_ELEMENT_DESC> layout =
 		{
 			{"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 			{"Normal", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
-		};
+		};*/
 
-		AddStaticBind(std::make_unique<InputLayout>(gfx, layout, pvsbc));
+		AddStaticBind(std::make_unique<InputLayout>(gfx, vbuf.GetLayout().GetD3DLayout(), pvsbc));
 
 		AddStaticBind(std::make_unique<Topology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 	}

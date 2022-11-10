@@ -341,7 +341,7 @@
     <ClInclude Include="Graphics\Drawables\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\VertexLayout.h">
+    <ClInclude Include="Graphics\Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

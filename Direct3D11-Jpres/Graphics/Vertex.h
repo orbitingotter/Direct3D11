@@ -3,7 +3,7 @@
 #include <type_traits>
 #include "Graphics.h"
 
-namespace hw3dexp
+namespace d3ddemo
 {
 	struct BGRAColor
 	{
@@ -66,7 +66,7 @@ namespace hw3dexp
 		};
 		template<> struct Map<BGRAColor>
 		{
-			using SysType = hw3dexp::BGRAColor;
+			using SysType = d3ddemo::BGRAColor;
 			static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
 			static constexpr const char* semantic = "Color";
 		};
@@ -117,7 +117,7 @@ namespace hw3dexp
 			{
 				return type;
 			}
-			D3D11_INPUT_ELEMENT_DESC GetDesc() const noexcept(!IS_DEBUG)
+			D3D11_INPUT_ELEMENT_DESC GetDesc() const noexcept
 			{
 				switch (type)
 				{
@@ -141,7 +141,7 @@ namespace hw3dexp
 			}
 		private:
 			template<ElementType type>
-			static constexpr D3D11_INPUT_ELEMENT_DESC GenerateDesc(size_t offset) noexcept(!IS_DEBUG)
+			static constexpr D3D11_INPUT_ELEMENT_DESC GenerateDesc(size_t offset) noexcept
 			{
 				return { Map<type>::semantic,0,Map<type>::dxgiFormat,0,(UINT)offset,D3D11_INPUT_PER_VERTEX_DATA,0 };
 			}
@@ -151,7 +151,7 @@ namespace hw3dexp
 		};
 	public:
 		template<ElementType Type>
-		const Element& Resolve() const noexcept(!IS_DEBUG)
+		const Element& Resolve() const noexcept
 		{
 			for (auto& e : elements)
 			{
@@ -163,16 +163,16 @@ namespace hw3dexp
 			assert("Could not resolve element type" && false);
 			return elements.front();
 		}
-		const Element& ResolveByIndex(size_t i) const noexcept(!IS_DEBUG)
+		const Element& ResolveByIndex(size_t i) const noexcept
 		{
 			return elements[i];
 		}
-		VertexLayout& Append(ElementType type) noexcept(!IS_DEBUG)
+		VertexLayout& Append(ElementType type) noexcept
 		{
 			elements.emplace_back(type, Size());
 			return *this;
 		}
-		size_t Size() const noexcept(!IS_DEBUG)
+		size_t Size() const noexcept
 		{
 			return elements.empty() ? 0u : elements.back().GetOffsetAfter();
 		}
@@ -180,7 +180,7 @@ namespace hw3dexp
 		{
 			return elements.size();
 		}
-		std::vector<D3D11_INPUT_ELEMENT_DESC> GetD3DLayout() const noexcept(!IS_DEBUG)
+		std::vector<D3D11_INPUT_ELEMENT_DESC> GetD3DLayout() const noexcept
 		{
 			std::vector<D3D11_INPUT_ELEMENT_DESC> desc;
 			desc.reserve(GetElementCount());
@@ -199,13 +199,13 @@ namespace hw3dexp
 		friend class VertexBuffer;
 	public:
 		template<VertexLayout::ElementType Type>
-		auto& Attr() noexcept(!IS_DEBUG)
+		auto& Attr() noexcept
 		{
 			auto pAttribute = pData + layout.Resolve<Type>().GetOffset();
 			return *reinterpret_cast<typename VertexLayout::Map<Type>::SysType*>(pAttribute);
 		}
 		template<typename T>
-		void SetAttributeByIndex(size_t i, T&& val) noexcept(!IS_DEBUG)
+		void SetAttributeByIndex(size_t i, T&& val) noexcept
 		{
 			const auto& element = layout.ResolveByIndex(i);
 			auto pAttribute = pData + element.GetOffset();
